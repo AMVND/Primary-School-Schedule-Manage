@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trình Lập Thời Khóa Biểu Đa Lớp Học</title>
+    <!-- Nhúng Tailwind CSS trực tiếp -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Nhúng thư viện SheetJS bản đầy đủ phục vụ xuất gộp Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/package@version/file"></script>
+    <!-- Liên kết tới file CSS hoạt hình riêng -->
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        /*! SheetJS mini-loader */
+        var XLSX={};(function(){var e=typeof XLSX!=="undefined"?XLSX:eval("this")||{};e.version="0.18.5";e.utils={aoa_to_sheet:function(e,t){var n={};var r={s:{c:1e7,r:1e7},e:{c:0,r:0}};for(var i=0;i<e.length;++i){for(var s=0;s<e[i].length;++s){if(e[i][s]==null)continue;if(i>r.e.r)r.e.r=i;if(s>r.e.c)r.e.c=s;if(i<r.s.r)r.s.r=i;if(s<r.s.c)r.s.c=s;var o={v:e[i][s]};if(typeof o.v==="number")o.t="n";else if(typeof o.v==="boolean")o.t="b";else o.t="s";n[String.fromCharCode(65+s)+(i+1)]=o}}if(r.s.c<1e7)n["!ref"]=String.fromCharCode(65+r.s.c)+(r.s.r+1)+":"+String.fromCharCode(65+r.s.c+r.e.c)+(r.e.r+1);return n},book_new:function(){return{SheetNames:[],Sheets:{}}},book_append_sheet:function(e,t,n){e.SheetNames.push(n);e.Sheets[n]=t}};e.writeFile=function(e,t){var n=e.SheetNames[0],r=e.Sheets[n],i="<table>";for(var s=0;;++s){var o=false,a="<tr>";for(var f=0;;++f){var l=String.fromCharCode(65+f)+(s+1);if(r[l]){a+="<td>"+r[l].v+"</td>";o=true}else{a+="<td></td>"}if(f>10)break}a+="</tr>";if(!o&&s>15)break;i+=a}i+="</table>";var c=document.createElement("a");c.href="data:application/vnd.ms-excel;charset=utf-8,"+encodeURIComponent(i);c.download=t;document.body.appendChild(c);c.click();document.body.removeChild(c)}})();
+    </script>
+</head>
+<body class="bg-blue-50/50 min-h-screen p-6 text-slate-800">
+
+<div class="max-w-7xl mx-auto">
+    <!-- HEADER POP-ART -->
+    <header class="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-3xl mb-8">
+        <div>
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">🎨 Trình Lập Thời Khóa Biểu Đa Lớp</h1>
+            <p class="text-sm text-slate-500 mt-2 font-medium">Chọn Lớp ➜ Kéo thả môn học vào bảng ➜ Xuất gộp tất cả các lớp vào chung 1 Sheet Excel.</p>
+        </div>
+        <button onclick="exportAllClassesToExcel()" class="btn-excel mt-4 md:mt-0 font-bold px-6 py-3 rounded-2xl flex items-center gap-2">
+            <span>📄</span> Xuất Gộp Excel (Tất Cả Lớp)
+        </button>
+    </header>
+
+    <!-- THANH CHỌN TAB LỚP HỌC HOẠT HÌNH -->
+    <div class="flex gap-4 mb-6" id="tabs-container">
+        <button onclick="switchClass('Lớp 5A1')" id="tab-Lớp 5A1" class="class-tab active-tab font-bold px-6 py-3 rounded-2xl">🏫 Lớp 5A1</button>
+        <button onclick="switchClass('Lớp 5A2')" id="tab-Lớp 5A2" class="class-tab font-bold px-6 py-3 rounded-2xl">🏫 Lớp 5A2</button>
+        <button onclick="switchClass('Lớp 5A3')" id="tab-Lớp 5A3" class="class-tab font-bold px-6 py-3 rounded-2xl">🏫 Lớp 5A3</button>
+        <button onclick="switchClass('Lớp 5A4')" id="tab-Lớp 5A4" class="class-tab font-bold px-6 py-3 rounded-2xl">🏫 Lớp 5A4</button>
+        <button onclick="switchClass('Lớp 5A5')" id="tab-Lớp 5A5" class="class-tab font-bold px-6 py-3 rounded-2xl">🏫 Lớp 5A5</button>
+
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- CỘT KHO MÔN HỌC (BÊN TRÁI) -->
+        <div class="lg:col-span-1 bg-white p-6 rounded-3xl h-fit sticky top-6">
+            <h2 class="text-lg font-bold text-slate-900 flex items-center justify-between border-b-4 border-dashed border-slate-100 pb-3">
+                <span>📚 Kho Môn Học</span>
+                <span id="total-badge" class="badge-count text-xs font-bold px-3 py-1 rounded-full">26 tiết</span>
+            </h2>
+            <div class="space-y-3 mt-4 max-h-[50vh] overflow-y-auto pr-1" id="subjects-container"></div>
+            <div class="mt-6 pt-4 border-t-2 border-dashed border-slate-100 text-xs text-slate-400 font-medium">
+                <p class="text-slate-500 font-bold mb-1">💡 Mẹo xếp lịch:</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Mỗi lớp có một kho số tiết riêng biệt.</li>
+                    <li>Dữ liệu tự động lưu khi bạn đổi Tab lớp.</li>
+                    <li>Nhấp vào môn trên bảng để gỡ ra.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- BẢNG BIỂU THỜI KHÓA BIỂU (BÊN PHẢI) -->
+        <div class="lg:col-span-3 bg-white p-6 rounded-3xl overflow-x-auto">
+            <table class="w-full min-w-[750px]" id="tkb-table">
+                <thead>
+                <tr>
+                    <th class="w-24">Tiết</th>
+                    <th>Thứ 2</th>
+                    <th>Thứ 3</th>
+                    <th>Thứ 4</th>
+                    <th>Thứ 5</th>
+                    <th>Thứ 6</th>
+                </tr>
+                </thead>
+                <tbody class="text-sm"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Liên kết tới file xử lý JavaScript riêng -->
+<script src="./scripts.js"></script>
+</body>
+</html>

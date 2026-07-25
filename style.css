@@ -1,0 +1,143 @@
+@import url('https://googleapis.com');
+
+/* Định dạng phong cách hoạt hình tổng thể */
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+body {
+    background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+}
+
+/* Các khối hộp phong cách Pop-Art viền đen đậm */
+header, .lg\:col-span-1, .lg\:col-span-3, .class-tab, .subject-tag, th, .slot-fixed, .slot-disabled, .table-subject-card {
+    border: 4px solid #1e293b !important;
+    box-shadow: 5px 5px 0px #1e293b !important;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* Định dạng riêng cho nút bấm Xuất Excel */
+.btn-excel {
+    background: #22c55e !important;
+    color: white !important;
+    border: 4px solid #1e293b !important;
+    box-shadow: 4px 4px 0px #1e293b !important;
+}
+.btn-excel:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #1e293b !important;
+    background: #16a34a !important;
+}
+.btn-excel:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #1e293b !important;
+}
+
+/* Cấu hình các nút chuyển đổi Tab lớp học */
+.class-tab {
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+}
+.class-tab:hover {
+    transform: translateY(-2px);
+}
+.active-tab {
+    background: #3b82f6 !important;
+    color: white !important;
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px #1e293b !important;
+}
+
+/* Cấu hình thẻ môn học bên Kho bên trái */
+.subject-tag {
+    cursor: grab;
+    user-select: none;
+}
+.subject-tag:hover {
+    transform: scale(1.02) rotate(-1deg);
+}
+.badge-count {
+    background: #f1f5f9;
+    border: 2px solid #1e293b;
+}
+
+/* Cấu hình bảng dữ liệu */
+table {
+    border-collapse: separate !important;
+    border-spacing: 8px !important;
+}
+th {
+    background: #f8fafc;
+    padding: 12px !important;
+}
+td {
+    height: 65px;
+    position: relative;
+}
+
+/* Ô trống và hiệu ứng kéo lướt qua */
+.slot-empty {
+    border: 3px dashed #cbd5e1 !important;
+    background: #f8fafc;
+    border-radius: 16px;
+    box-shadow: none !important;
+}
+.slot-empty:hover {
+    border-color: #94a3b8 !important;
+    background: #f1f5f9;
+}
+.drag-over {
+    border: 4px solid #22c55e !important;
+    background: #f0fdf4 !important;
+    transform: scale(0.96);
+}
+
+/* Ô cố định */
+.slot-fixed {
+    background: #cbd5e1;
+    color: #475569;
+    font-weight: 700;
+    border-radius: 16px;
+}
+.slot-disabled {
+    background: #fee2e2;
+    border: 3px dashed #fca5a5 !important;
+    color: #f87171;
+    font-style: italic;
+    border-radius: 16px;
+    box-shadow: none !important;
+}
+
+/* Nhãn môn học trên lưới */
+.table-subject-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    box-shadow: 0px 4px 0px #1e293b !important;
+    animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.table-subject-card:hover { transform: translateY(-2px); box-shadow: 0px 6px 0px #1e293b !important; }
+
+@keyframes bounceIn {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* BẢNG MÀU HOẠT HÌNH CHO TỪNG LOẠI MÔN */
+.color-tv { background-color: #ffb3ba; color: #7a151a; }
+.color-toan { background-color: #ffdfba; color: #7a4b15; }
+.color-nn { background-color: #baffc9; color: #155e2e; }
+.color-kh { background-color: #bae1ff; color: #15437a; }
+.color-lsdl { background-color: #e8baff; color: #4e157a; }
+.color-nt { background-color: #ffffba; color: #6d6d13; }
+.color-td { background-color: #fed7aa; color: #7c2d12; }
+.color-dd { background-color: #fbcfe8; color: #831843; }
+.color-th { background-color: #c7d2fe; color: #1e1b4b; }
+.color-cn { background-color: #fef08a; color: #713f12; }
+.color-hdtn { background-color: #d9f99d; color: #365314; }
+.color-ggdp { background-color: #ddd6fe; color: #4c1d95; }
